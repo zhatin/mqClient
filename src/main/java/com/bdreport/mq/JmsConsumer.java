@@ -22,7 +22,7 @@ public class JmsConsumer {
 		logger.debug("Message in Queue: " + text);
 
 		JmsRealDataModel dataModel = (JmsRealDataModel) JSON.parseObject(text, JmsRealDataModel.class);
-		dataRepository.append(dataModel);
+		//dataRepository.append(dataModel);
 		
 		dataRepository.appendList(dataModel);
 	}
