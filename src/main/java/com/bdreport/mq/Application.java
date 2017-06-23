@@ -3,7 +3,7 @@ package com.bdreport.mq;
 import javax.jms.Queue;
 
 import org.apache.activemq.command.ActiveMQQueue;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -33,10 +33,13 @@ public class Application {
 
     @Bean
 	public Queue queue() {
-		return new ActiveMQQueue("bdreport.queue");
+		return new ActiveMQQueue(queueName);
 	}
 
-	public static void main(String[] args) {
+    @Value("${bdreport.queue.name}")
+    private String queueName;
+
+    public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 
