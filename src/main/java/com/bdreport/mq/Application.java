@@ -31,14 +31,6 @@ public class Application {
     static class Local
     { }
 
-    @Bean
-	public Queue queue() {
-		return new ActiveMQQueue(queueName);
-	}
-
-    @Value("${bdreport.queue.name}")
-    private String queueName;
-
     public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
