@@ -1,6 +1,8 @@
 package com.bdreport.mq.data;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -45,18 +47,25 @@ public class JpaRealDataRepository {
 		int gateway_no = dataModel.getGatewayNo();
 		String data_type = dataModel.getFuncCode();
 		String data_date_time = dataModel.getDataTime();
-		int dl = dataModel.getDataLength();
-		List<Float> dat = dataModel.getDataList();
+		// int dl = dataModel.getDataLength();
+		Map<Integer, List<Float>> dat = dataModel.getDataList();
+		Iterator<Map.Entry<Integer, List<Float>>> entries = dat.entrySet().iterator();
 
-		for (int i = 0; i < dl; i++) {
-			DataRecord dc = new DataRecord();
-			dc.setGateway_no(gateway_no);
-			dc.setData_type(data_type);
-			dc.setData_date_time(data_date_time);
-			dc.setSensor_no(i + 1);
-			dc.setSensor_data(dat.get(i).floatValue());
+		while (entries.hasNext()) {
+			Map.Entry<Integer, List<Float>> entry = entries.next();
+			int terminator_no = entry.getKey().intValue();
+			List<Float> datList = entry.getValue();
+			for (int i = 0; i < datList.size(); i++) {
+				DataRecord dc = new DataRecord();
+				dc.setGateway_no(gateway_no);
+				dc.setData_type(data_type);
+				dc.setData_date_time(data_date_time);
+				dc.setTerminator_no(terminator_no);
+				dc.setSensor_no(i + 1);
+				dc.setSensor_data(datList.get(i).floatValue());
 
-			this.entityManager.persist(dc);
+				this.entityManager.persist(dc);
+			}
 		}
 
 	}

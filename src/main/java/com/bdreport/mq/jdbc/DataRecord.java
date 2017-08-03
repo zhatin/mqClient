@@ -29,6 +29,9 @@ public class DataRecord {
 
 	@Column(name = "gateway_no")
 	private int gateway_no;
+	
+	@Column(name = "terminator_no")
+	private int terminator_no;
 
 	@Column(name = "data_type")
 	private String data_type;
@@ -67,6 +70,14 @@ public class DataRecord {
 
 	public void setGateway_no(int gateway_no) {
 		this.gateway_no = gateway_no;
+	}
+
+	public int getTerminator_no() {
+		return terminator_no;
+	}
+
+	public void setTerminator_no(int terminator_no) {
+		this.terminator_no = terminator_no;
 	}
 
 	public String getData_type() {
