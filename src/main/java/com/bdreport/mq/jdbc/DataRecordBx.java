@@ -13,8 +13,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "data_after_parse")
-public class DataRecord {
+@Table(name = "report_bx_data")
+public class DataRecordBx {
 
 	@Id
 	@GenericGenerator(name = "id_generator", strategy = "identity")
@@ -33,8 +33,8 @@ public class DataRecord {
 	@Column(name = "terminator_no")
 	private int terminator_no;
 
-	@Column(name = "data_type")
-	private String data_type;
+	@Column(name = "protocol_code")
+	private String protocol_code;
 
 	@Column(name = "data_date_time")
 	private String data_date_time;
@@ -80,12 +80,12 @@ public class DataRecord {
 		this.terminator_no = terminator_no;
 	}
 
-	public String getData_type() {
-		return data_type;
+	public String getProtocol_code() {
+		return protocol_code;
 	}
 
-	public void setData_type(String data_type) {
-		this.data_type = data_type;
+	public void setProtocol_code(String protocol_code) {
+		this.protocol_code = protocol_code;
 	}
 
 	public String getData_date_time() {

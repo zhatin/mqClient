@@ -10,12 +10,12 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
-import com.bdreport.mq.data.JmsRealDataModel;
+import com.bdreport.mq.data.DataModelBx;
 import com.bdreport.mq.data.JpaRealDataRepository;
 
 @Component
 @PropertySource(value= "classpath:/properties/local/application.properties")
-public class JmsConsumer {
+public class JmsConsumerBx {
 
     @Configuration
     @Profile("production")
@@ -29,16 +29,16 @@ public class JmsConsumer {
     static class Local
     { }
 
-    private static Logger logger = Logger.getLogger(JmsConsumer.class.getName());
+    private static Logger logger = Logger.getLogger(JmsConsumerBx.class.getName());
 
 	@Autowired
 	JpaRealDataRepository dataRepository;
 
-    @JmsListener(destination = "${bdreport.queue.name}")
+    @JmsListener(destination = "${bdreport.queueBx.name}")
 	public void receiveQueue(String text) {
 		logger.debug("Message in Queue: " + text);
 
-		JmsRealDataModel dataModel = (JmsRealDataModel) JSON.parseObject(text, JmsRealDataModel.class);
+		DataModelBx dataModel = (DataModelBx) JSON.parseObject(text, DataModelBx.class);
 		//dataRepository.append(dataModel);
 		
 		dataRepository.appendList(dataModel);
